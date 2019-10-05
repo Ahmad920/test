@@ -1,27 +1,8 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="./assets/img/favicons/favicon.ico">
-
-    <title>الصفحة الشخصية</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{{ asset('dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/fonts/fonts.css') }}" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
-
-    <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
-    <link href="{{ asset('assets/css/gijgo.min.css') }}" rel="stylesheet" type="text/css" />
-
-  </head>
-<body>
-    
+@extends('layouts.app')
+<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/gijgo.min.js') }}" type="text/javascript"></script>
+<link href="{{ asset('assets/css/gijgo.min.css') }}" rel="stylesheet" type="text/css" />
+@section('content')
 
 <div class="row" style="direction:  rtl;text-align:  right;">
   <div class="col-md-2"></div>
@@ -98,3 +79,5 @@
         }, false);
       })();
     </script>
+
+@endsection

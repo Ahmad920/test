@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use \App\User;
-use Illuminate\Http\Request;
 
-class UserController extends Controller
+use Illuminate\Http\Request;
+use \App\Comment;
+
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,6 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users= User::where("id","!=",auth()->user()->id);
-        return view('follow_view/uses/',compact('users'));
     }
 
     /**
@@ -37,6 +36,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $comment= new Comment;
+        $comment->post_id= $request->post_id;
+        $comment->user_id = auth()->user()->id;
+        $comment->comment = $request->comment;
+        $comment->save();
+
+        return redirect('post/'.$comment->post_id);
     }
 
     /**
@@ -56,12 +62,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
         //
-        $user = User::find(auth()->user()->id);
-        $active_profile='primary';
-        return view('auth/user_profile',compact('user','active_profile'));
     }
 
     /**
@@ -71,25 +74,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         //
-        $name="";
-        if($request->hasfile('filename')){
-            $file=$request->file('filename');
-            //dd($file);
-            $name=time().$file->getClientOriginalName();
-            $file->move(public_path().'/images/avatar/',$name);
-        }
-        $user=User::find(auth()->user()->id);
-        $user->first_name=$request->get('first_name');
-        $user->last_name=$request->get('last_name');
-        $user->birth_date=$request->get('birth_date');
-
-        if(strlen($name)>0)
-        $user->avatar=$name;
-        $user->save();
-        return redirect('/user/profile');
     }
 
     /**
@@ -101,5 +88,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+        $comment=Comment::find($id);
+        if($comment->user_id==auth()->user()->id){
+        $comment->delete();
+        return redirect('post/'.$comment->post_id);
+        }
+        else{
+            return redirect('not_found');
+        }
     }
 }
