@@ -42,10 +42,13 @@ class User extends Authenticatable
     }
 
     public function following(){
-        return $this->belongsTo(Follower::class,'from_user_id');
+        return $this->hasMany(Follower::class,'from_user_id');
     }
 
     public function follower(){
-        return $this->belongsTo(Follower::class,'to_user_id');
+        return $this->hasMany(Follower::class,'to_user_id');
     }
+
+
+    
 }

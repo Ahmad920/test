@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use \App\User;
 use Illuminate\Http\Request;
 use \App\Follower;
+use \App\Post;
+use \App\Like;
 
 class UserController extends Controller
 {
@@ -20,6 +22,34 @@ class UserController extends Controller
         $active_users="primary";
         return view('follow_view.users',compact('users','active_users','requests'));
     }
+
+    /**
+     * view user info
+     * 
+     */
+
+    public function user_info(Request $request)
+    {
+        $user= User::find($request->id);
+        $posts= Post::where(["user_id"=>$request->id])->limit(3)->get();
+        $posts_counts= Post::where(["user_id"=>$request->id])->count();
+        $likes_counts= Like::whereIn("post_id",Post::where(["user_id"=>$request->id])->get()->pluck('id'))->count();
+        $is_follower= Follower::where(["from_user_id"=>auth()->user()->id,"to_user_id"=>$request->id])->get();
+        return view('auth/user_info',compact('user','posts','posts_counts','likes_counts','is_follower'));
+    }
+
+
+/**
+ * search users by name
+ */
+
+public function autocomplete(Request $request)
+{
+    $results=array();
+    $item = $request->searchname;
+    $data=User::where('first_name','LIKE','%' .$item.'%')->orWhere('last_name','LIKE','%' .$item.'%')->take(5)->get();
+    return response()->json($data);
+}
 
     /**
      * Show the form for creating a new resource.

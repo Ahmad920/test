@@ -19,13 +19,14 @@
 
   <!-- Import typeahead.js -->
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> -->
-	<script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+	<!-- <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script> -->
 	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 
     <!-- Import typeahead.js -->
-	<script src="{{ asset('assets/js/typeahead.bundle.js') }}"></script>
-
-
+	<!-- <script src="{{ asset('assets/js/typeahead.bundle.js') }}"></script> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.jquery.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
     		var bloodhound = new Bloodhound({
@@ -44,6 +45,7 @@
 			}, {
 				name: 'users',
 				source: bloodhound,
+				// limit : 10 ,
 				display: function(data) {
 					return data.name  //Input value to be set when you select a suggestion. 
 				},

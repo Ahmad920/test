@@ -37,6 +37,9 @@
           <!-- foreach post end -->
         </div>
         <!-- Paginations -->
+        @isset($posts)
+          {{$posts->links("pagination::bootstrap-4")}}
+        @endisset
       </div>
     </div>
 @endsection
