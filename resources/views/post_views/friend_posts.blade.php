@@ -3,6 +3,7 @@
 @section('content')
 <div class="album py-5 bg-light">
     <div class="container">
+        
         @isset($posts)
         <center>
             <h2>الصفحة الشخصيـة ل {{$posts[0]->user->first_name." ".$posts[0]->user->last_name}}</h2>

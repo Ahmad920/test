@@ -14,11 +14,13 @@
               </div>
             </div>
 
+            @can('delete',$post)
             <form action="{{action('PostController@destroy',$post->id)}}" method="post">
               {{csrf_field()}}
               <input type="hidden" name="_method" value="DELETE">
               <button class="btn btn-sm btn-outline-secondary">حذف</button>
             </form>
+            @endcan
           </div>
           <img class="card-img-top" src="{{asset('images/'.$post['image_path'])}}" alt="Card image cap">
           <div class="card-body">
